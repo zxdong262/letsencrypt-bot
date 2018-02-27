@@ -1,0 +1,27 @@
+{
+  "name": "letsencrypt-bot",
+  "version": "0.0.1",
+  "description": "an app to handle letsencrypt renew/upodate cert",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zxdong262/letsencrypt-bot.git"
+  },
+  "keywords": [
+    "letsencrypt"
+  ],
+  "author": "ZHAO Xudong <zxdong@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zxdong262/letsencrypt-bot/issues"
+  },
+  "homepage": "https://github.com/zxdong262/letsencrypt-bot#readme",
+  "dependencies": {
+    "koa": "2.5.0",
+    "koa-router": "7.4.0",
+    "shelljs": "0.8.1"
+  }
+}
