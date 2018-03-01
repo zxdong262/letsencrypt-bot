@@ -20,7 +20,7 @@ module.exports = {
 
   //timer to do renew operation, default is first day of every month
   //visit https://github.com/node-schedule/node-schedule to seee more rules
-  //schedule: '* * * 1 * *',
+  //schedule: '1 1 2 1 * *',
 
   //root certs location
   //rootCertsSrc: '/etc/letsencrypt/live',
