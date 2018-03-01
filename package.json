@@ -1,11 +1,7 @@
 {
   "name": "letsencrypt-bot",
-  "version": "0.0.1",
-  "description": "an app to handle letsencrypt renew/upodate cert",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "1.0.0",
+  "description": "an app to help handling letsencrypt renew/upodate",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zxdong262/letsencrypt-bot.git"

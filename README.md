@@ -1,5 +1,5 @@
 # letsencrypt-bot
-an app to handle letsencrypt renew/upodate cert
+an app to help handling letsencrypt renew/upodate
 
 ## when to use
 - your server runs in `non-privilege user` and custom server
@@ -49,6 +49,9 @@ cmds/run-root.sh
 
 ## in non-privilege user runs
 cmds/run-user.sh
+
+## or use pm2
+# pm2 run cmds/run-root.sh
 
 ## both needed
 ```
