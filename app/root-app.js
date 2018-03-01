@@ -21,10 +21,10 @@ const {
 const run = async () => {
   log('start ')
   let cmd = webroots.reduce((prev, w) => {
-    let {src, domains} = w
+    let {webroot, domains} = w
     let d = domains.map(dd => `-d ${dd}`).join(' ')
     return prev +
-      ` -w ${src} ${d}`
+      ` -w ${webroot} ${d}`
   }, `certbot certonly --force-renewal ${test ? '--staging' : ''} --webroot`)
   log('cmd:', cmd)
   await exec(cmd)

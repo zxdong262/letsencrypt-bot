@@ -3,11 +3,11 @@ let conf = {
   //webroots requred
   // webroots: [
   //   {
-  //     src: '/var/www/example.com',
+  //     webroot: '/var/www/example.com',
   //     domains: ['example.com', 'www.example.com']
   //   },
   //   {
-  //     src: '/var/www/some.com',
+  //     webroot: '/var/www/some.com',
   //     domains: ['some.com', 'www.some.com']
   //   }
   // ],
