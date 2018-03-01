@@ -29,9 +29,12 @@ const run = async () => {
   }, 'certbot certonly --force-renewal --webroot')
   log('cmd:', cmd)
   await exec(cmd)
+    .then(out => {
+      console.log(out)
+    })
     .catch(err => {
       log('run certbot renew error:')
-      log(err.stack)
+      log(err)
     })
 }
 

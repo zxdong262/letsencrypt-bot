@@ -15,6 +15,9 @@ const {
 const restartServer = async () => {
   log('restartServerCmd:', restartServerCmd)
   await exec(restartServerCmd)
+    .then(out => {
+      console.log(out)
+    })
     .catch(err => {
       log('restartServerCmd error:')
       log(err.stack)
@@ -24,7 +27,7 @@ const restartServer = async () => {
 watch.createMonitor(userCertsSrc, {
   filter: f => f.includes('stamp')
 }, function (monitor) {
-
+  log('monitor started')
   monitor.on('created', restartServer)
   monitor.on('changed', restartServer)
 
