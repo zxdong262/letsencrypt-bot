@@ -26,7 +26,7 @@ const run = async () => {
     let d = domains.map(dd => `-d ${dd}`).join(' ')
     return prev +
       ` -w ${webroot} ${d}`
-  }, `certbot certonly ${test ? '--staging' : ''} --webroot`)
+  }, 'certbot certonly --force-renewal --webroot')
   log('cmd:', cmd)
   await exec(cmd)
     .catch(err => {
