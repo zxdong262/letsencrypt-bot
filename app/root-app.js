@@ -2,12 +2,13 @@
  * runs in root
  */
 
-const schedule = require('node-schedule')
+const scheduler = require('node-schedule')
 const exec = require('../lib/exec')
 const {resolve} = require('path')
 const {readdirSync, readFileSync, writeFileSync, existsSync} = require('fs')
 const log = require('../lib/log')
 const {mkdir} = require('shelljs')
+const watch = require('watch')
 const {
   webroots,
   rootCertsSrc,
@@ -62,6 +63,6 @@ watch.createMonitor(rootCertsSrc, function (monitor) {
 if (test) {
   run()
 } else {
-  schedule.scheduleJob(config.schedule, run)
+  scheduler.scheduleJob(schedule, run)
 }
 

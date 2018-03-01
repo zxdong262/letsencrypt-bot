@@ -4,6 +4,7 @@
 
 const exec = require('../lib/exec')
 const log = require('../lib/log')
+const watch = require('watch')
 const {
   userCertsSrc,
   restartServerCmd
@@ -13,18 +14,17 @@ const {
 //certbot certonly --webroot -w /var/www/example -d example.com -d www.example.com -w /var/www/thing -d thing.is -d m.thing.is
 const restartServer = async () => {
   log('restartServerCmd:', restartServerCmd)
-  await exec(cmd)
+  await exec(restartServerCmd)
     .catch(err => {
       log('restartServerCmd error:')
       log(err.stack)
     })
 }
 
-watch.createMonitor(userCertsSrc, function (monitor) {
+watch.createMonitor(userCertsSrc + '/stamp', function (monitor) {
 
-  monitor.on('created', syncFiles)
+  monitor.on('created', restartServer)
   monitor.on('changed', restartServer)
 
 })
 
-schedule.scheduleJob(config.schedule, run)

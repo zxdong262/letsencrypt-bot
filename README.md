@@ -16,7 +16,7 @@ an app to handle letsencrypt renew/upodate cert
 ```bash
 git clone git@github.com:zxdong262/letsencrypt-bot.git
 cd letsencrypt-bot
-npm i
+npm i --production
 cp config.sample config.js
 #then edit config.js, fill all the required options
 # //requred: webroots
