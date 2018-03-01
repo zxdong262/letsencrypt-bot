@@ -23,5 +23,8 @@ module.exports = {
   //schedule: '* * * 1 * *',
 
   //root certs location
-  //rootCertsSrc: '/etc/letsencrypt/live'
+  //rootCertsSrc: '/etc/letsencrypt/live',
+
+  //when test is true, use stage option
+  //test: false
 }
