@@ -12,6 +12,9 @@ let conf = {
   //   }
   // ],
 
+  //when certs updated, `non-privilege user` run cmd to restart server
+  //restartServerCmd: 'nginx -s reload',
+
   //app user certs location requred
   //userCertsSrc: '/home/xxxx/certs',
 

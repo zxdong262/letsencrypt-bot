@@ -1,6 +1,6 @@
 module.exports = {
 
-  //webroots requred
+  //requred: webroots
   // webroots: [
   //   {
   //     src: '/var/www/example.com',
@@ -12,11 +12,14 @@ module.exports = {
   //   }
   // ],
 
-  //app user certs location requred
+  //requred: when certs updated, `non-privilege user` run cmd to restart server
+  //restartServerCmd: 'nginx -s reload',
+
+  //requred: app user certs location requred
   //userCertsSrc: '/home/xxxx/certs',
 
   //timer to do renew operation, default is first day of every month
-  //https://github.com/node-schedule/node-schedule
+  //visit https://github.com/node-schedule/node-schedule to seee more rules
   //schedule: '* * * 1 * *',
 
   //root certs location
