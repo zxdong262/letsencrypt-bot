@@ -54,11 +54,14 @@ const syncFiles = () => {
   writeFileSync(stamp, new Date() + '')
 }
 
-watch.createMonitor(rootCertsSrc, function (monitor) {
 
+watch.createMonitor(rootCertsSrc, function (monitor) {
   monitor.on('created', syncFiles)
   monitor.on('changed', syncFiles)
-
 })
+if (test) {
+  run()
+} else {
+  schedule.scheduleJob(config.schedule, run)
+}
 
-schedule.scheduleJob(config.schedule, run)
