@@ -12,7 +12,8 @@ const {
   webroots,
   rootCertsSrc,
   userCertsSrc,
-  schedule
+  schedule,
+  test
 } = require('../config.default')
 
 
@@ -24,7 +25,7 @@ const run = async () => {
     let d = domains.map(dd => `-d ${dd}`).join(' ')
     return prev +
       ` -w ${src} ${d}`
-  }, 'certbot certonly --force-renewal --webroot')
+  }, `certbot certonly --force-renewal ${test ? '--staging' : ''} --webroot`)
   log('cmd:', cmd)
   await exec(cmd)
     .catch(err => {
