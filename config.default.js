@@ -32,6 +32,7 @@ let conf = {
 try {
   let ext = require('./config.js')
   Object.assign(conf, ext)
+  module.exports = conf
 } catch(e) {
   console.log('no config.js, create config.js by `cp config.sample.js config.js`')
   process.exit(1)

@@ -21,7 +21,9 @@ const restartServer = async () => {
     })
 }
 
-watch.createMonitor(userCertsSrc + '/stamp', function (monitor) {
+watch.createMonitor(userCertsSrc, {
+  filter: f => f.includes('stamp')
+}, function (monitor) {
 
   monitor.on('created', restartServer)
   monitor.on('changed', restartServer)
