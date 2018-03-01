@@ -60,12 +60,14 @@ const syncFiles = () => {
 
 
 watch.createMonitor(rootCertsSrc, function (monitor) {
+  log('monitor started')
   monitor.on('created', syncFiles)
   monitor.on('changed', syncFiles)
 })
 if (test) {
   run()
 } else {
+  log('scheduler started')
   scheduler.scheduleJob(schedule, run)
 }
 
