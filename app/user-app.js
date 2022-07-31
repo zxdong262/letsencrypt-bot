@@ -5,13 +5,23 @@
 const exec = require('../lib/exec')
 const log = require('../lib/log')
 const watch = require('watch')
+const axios = require('axios')
 const {
   userCertsSrc,
-  restartServerCmd
+  restartServerCmd,
+  startServerCmd
 } = require('../config.default')
 
+async function checkServer () {
+  const url = 'https://electerm.html5beta.com'
+  return axios.get(url)
+    .then(() => 'running')
+    .catch(err => {
+      console.log(err)
+      return 'not running'
+    })
+}
 
-//certbot certonly --webroot -w /var/www/example -d example.com -d www.example.com -w /var/www/thing -d thing.is -d m.thing.is
 const restartServer = async () => {
   log('restartServerCmd:', restartServerCmd)
   await exec(restartServerCmd)
@@ -24,12 +34,34 @@ const restartServer = async () => {
     })
 }
 
+const startServer = async () => {
+  log('start up nginx:', startServerCmd)
+  const running = await checkServer()
+  if (running === 'running') {
+    return console.log('already running, no need to start')
+  }
+  await exec(startServerCmd)
+    .then(out => {
+      console.log(out)
+    })
+    .catch(err => {
+      log('startServerCmd error:')
+      log(err.stack)
+    })
+}
+
 watch.createMonitor(userCertsSrc, {
   filter: f => f.includes('stamp')
 }, function (monitor) {
   log('monitor started')
   monitor.on('created', restartServer)
   monitor.on('changed', restartServer)
-
 })
 
+watch.createMonitor(userCertsSrc, {
+  filter: f => f.includes('start-up-nginx')
+}, function (monitor) {
+  log('nginx start monitor started')
+  monitor.on('created', startServer)
+  monitor.on('changed', startServer)
+})

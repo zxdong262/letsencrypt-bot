@@ -2,72 +2,59 @@
  * runs in root
  */
 
-const scheduler = require('node-schedule')
-const exec = require('../lib/exec')
-const {resolve} = require('path')
-const {readdirSync, readFileSync, writeFileSync, existsSync} = require('fs')
+const { resolve } = require('path')
+const { readdirSync, readFileSync, writeFileSync, existsSync } = require('fs')
 const log = require('../lib/log')
-const {mkdir} = require('shelljs')
+const { mkdir } = require('shelljs')
 const watch = require('watch')
 const {
-  webroots,
   rootCertsSrc,
-  userCertsSrc,
-  schedule,
-  test
+  userCertsSrc
 } = require('../config.default')
 
-
-//certbot certonly --webroot -w /var/www/example -d example.com -d www.example.com -w /var/www/thing -d thing.is -d m.thing.is
+// certbot certonly --webroot -w /var/www/example -d example.com -d www.example.com -w /var/www/thing -d thing.is -d m.thing.is
 const run = async () => {
-  log('start ')
-  let cmd = webroots.reduce((prev, w) => {
-    let {webroot, domains} = w
-    let d = domains.map(dd => `-d ${dd}`).join(' ')
-    return prev +
-      ` -w ${webroot} ${d}`
-  }, 'certbot certonly --force-renewal --webroot')
-  log('cmd:', cmd)
-  await exec(cmd)
-    .then(out => {
-      console.log(out)
-    })
-    .catch(err => {
-      log('run certbot renew error:')
-      log(err)
-    })
+  log('start nginx')
+  setTimeout(() => {
+    const file = resolve(userCertsSrc, 'start-up-nginx.txt')
+    writeFileSync(file, new Date() + '')
+  }, 1000)
+}
+
+function tryReadDir (p) {
+  try {
+    return readdirSync(p)
+  } catch (e) {
+    console.log('not a dir', e)
+    return []
+  }
 }
 
 const syncFiles = () => {
-  let folders = readdirSync(rootCertsSrc)
-  for (let f of folders) {
-    let p = resolve(rootCertsSrc, f)
-    let files = readdirSync(p)
-    for (let file of files) {
-      let pp = resolve(rootCertsSrc, f, file)
-      let str = readFileSync(pp)
-      let targetFolder = resolve(userCertsSrc, f)
+  console.log('syncFiles')
+  const folders = readdirSync(rootCertsSrc)
+  for (const f of folders) {
+    const p = resolve(rootCertsSrc, f)
+    const files = tryReadDir(p)
+    for (const file of files) {
+      const pp = resolve(rootCertsSrc, f, file)
+      const str = readFileSync(pp)
+      const targetFolder = resolve(userCertsSrc, f)
       if (!existsSync(targetFolder)) {
         mkdir('-p', targetFolder)
       }
-      let targetFile = resolve(userCertsSrc, f, file)
+      const targetFile = resolve(userCertsSrc, f, file)
       writeFileSync(targetFile, str)
     }
   }
-  let stamp = resolve(userCertsSrc, 'stamp')
+  const stamp = resolve(userCertsSrc, 'stamp')
   writeFileSync(stamp, new Date() + '')
 }
 
-
 watch.createMonitor(rootCertsSrc, function (monitor) {
-  log('monitor started')
+  log('monitor started1')
   monitor.on('created', syncFiles)
   monitor.on('changed', syncFiles)
 })
-if (test) {
-  run()
-} else {
-  log('scheduler started')
-  scheduler.scheduleJob(schedule, run)
-}
 
+run()

@@ -1,6 +1,6 @@
 module.exports = {
 
-  //requred: webroots
+  // requred: webroots
   // webroots: [
   //   {
   //     webroot: '/var/www/example.com',
@@ -12,19 +12,19 @@ module.exports = {
   //   }
   // ],
 
-  //requred: when certs updated, `non-privilege user` run cmd to restart server
-  //restartServerCmd: 'nginx -s reload',
+  // requred: when certs updated, `non-privilege user` run cmd to restart server
+  // restartServerCmd: 'nginx -s reload',
 
-  //requred: app user certs location requred
-  //userCertsSrc: '/home/xxxx/certs',
+  // requred: app user certs location requred
+  // userCertsSrc: '/home/xxxx/certs',
 
-  //timer to do renew operation, default is first day of every month
-  //visit https://github.com/node-schedule/node-schedule to seee more rules
-  //schedule: '1 1 2 1 * *',
+  // timer to do renew operation, default is first day of every month
+  // visit https://github.com/node-schedule/node-schedule to seee more rules
+  // schedule: '1 1 2 1 * *',
 
-  //root certs location
-  //rootCertsSrc: '/etc/letsencrypt/live',
+  // root certs location
+  // rootCertsSrc: '/etc/letsencrypt/live',
 
-  //when test is true, use stage option
-  //test: false
+  // when test is true, use stage option
+  // test: false
 }
