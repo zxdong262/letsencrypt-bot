@@ -13,7 +13,7 @@ const {
 } = require('../config.default')
 
 async function checkServer () {
-  const url = 'https://electerm.html5beta.com'
+  const url = 'https://tmp.html5beta.com'
   return axios.get(url)
     .then(() => 'running')
     .catch(err => {
