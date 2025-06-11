@@ -10,11 +10,11 @@ const {
   userCertsSrc,
   restartServerCmd,
   startServerCmd,
-  checkServer
+  checkServerUrl
 } = require('../config.default')
 
 async function checkServer () {
-  return axios.get(checkServer)
+  return axios.get(checkServerUrl)
     .then(() => 'running')
     .catch(err => {
       console.log(err)
