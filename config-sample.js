@@ -26,5 +26,8 @@ module.exports = {
   // rootCertsSrc: '/etc/letsencrypt/live',
 
   // when test is true, use stage option
-  // test: false
+  // test: false,
+
+  // check server for nginx running
+  // checkServer: 'https://zgc.html5beta.com'
 }

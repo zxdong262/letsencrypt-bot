@@ -9,12 +9,12 @@ const axios = require('axios')
 const {
   userCertsSrc,
   restartServerCmd,
-  startServerCmd
+  startServerCmd,
+  checkServer
 } = require('../config.default')
 
 async function checkServer () {
-  const url = 'https://tmp.html5beta.com'
-  return axios.get(url)
+  return axios.get(checkServer)
     .then(() => 'running')
     .catch(err => {
       console.log(err)
