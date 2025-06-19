@@ -24,6 +24,9 @@ async function checkServer () {
 
 const restartServer = async () => {
   log('restartServerCmd:', restartServerCmd)
+  if (!restartServerCmd) {
+    return console.log('no restartServerCmd, skip')
+  }
   await exec(restartServerCmd)
     .then(out => {
       console.log(out)
