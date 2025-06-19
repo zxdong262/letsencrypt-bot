@@ -35,16 +35,19 @@ const syncFiles = () => {
   const folders = readdirSync(rootCertsSrc)
   for (const f of folders) {
     const p = resolve(rootCertsSrc, f)
-    const files = tryReadDir(p)
-    for (const file of files) {
-      const pp = resolve(rootCertsSrc, f, file)
-      const str = readFileSync(pp)
-      const targetFolder = resolve(userCertsSrc, f)
-      if (!existsSync(targetFolder)) {
-        mkdir('-p', targetFolder)
+    // Only process directories
+    if (existsSync(p) && isDirectory(p)) {
+      const files = tryReadDir(p)
+      for (const file of files) {
+        const pp = resolve(rootCertsSrc, f, file)
+        const str = readFileSync(pp)
+        const targetFolder = resolve(userCertsSrc, f)
+        if (!existsSync(targetFolder)) {
+          mkdir('-p', targetFolder)
+        }
+        const targetFile = resolve(userCertsSrc, f, file)
+        writeFileSync(targetFile, str)
       }
-      const targetFile = resolve(userCertsSrc, f, file)
-      writeFileSync(targetFile, str)
     }
   }
   const stamp = resolve(userCertsSrc, 'stamp')
@@ -58,3 +61,12 @@ watch.createMonitor(rootCertsSrc, function (monitor) {
 })
 
 run()
+
+// Helper function to check if path is a directory
+function isDirectory(path) {
+  try {
+    return require('fs').statSync(path).isDirectory()
+  } catch (e) {
+    return false
+  }
+}
